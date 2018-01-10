@@ -1,0 +1,22 @@
+- name: install required system packages
+  yum: name={{ item }} state=latest
+  with_items:
+      - busybox
+      - sudo
+- name: create busybox symlinks for runit
+  file:
+      state: link
+      src: /sbin/busybox
+      dest: "/sbin/{{ item }}"
+  with_items:
+      - chpst
+      - runsv
+      - runsvdir
+      - sv
+      - svlogd
+
+- name: setup upstart service
+  template: src=etc/init/runsvdir.conf dest=/etc/init/runsvdir.conf
+
+- name: start runsvdir
+  service: name=runsvdir state=started

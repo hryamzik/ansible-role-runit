@@ -1,0 +1,6 @@
+- name: install required system packages
+  yum: name={{ item }} state=latest
+  with_items:
+      - epel
+      - runit
+      - sudo
