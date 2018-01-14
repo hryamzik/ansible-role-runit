@@ -20,3 +20,6 @@
 
 - name: start runsvdir
   service: name=runsvdir state=started
+  
+- name: define SVDIR
+  copy: content="export SVDIR=/etc/service\n" dest=/etc/profile.d/runit.sh mode=644
